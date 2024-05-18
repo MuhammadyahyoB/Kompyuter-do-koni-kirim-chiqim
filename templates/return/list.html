@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+
+
+
+            <!--app-content open-->
+            <div class="main-content app-content mt-0">
+                <div class="side-app">
+
+                    <!-- CONTAINER -->
+                    <div class="main-container container-fluid">
+
+                        <!-- PAGE-HEADER -->
+                        <div class="page-header">
+                            <h1 class="page-title">Return-List</h1>
+                            <div>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Return</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">List</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <!-- PAGE-HEADER END -->
+
+                        <!-- ROW OPEN -->
+                        <div class="row row-cards">
+                            <div class="col-lg-12 col-xl-12">
+                                <div class="card">
+                                    <div class="e-table px-5 pb-5">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Return list</h4>
+                                        </div>
+                                        <div class="table-responsive table-lg">
+                                            <table class="table border-top table-bordered mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="color: aqua;">ID</th>
+                                                        <th style="color: aqua;">Outs</th>
+                                                        <th style="color: aqua;" class="text-center">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for car in queryset %}
+                                                    <tr>
+                                                        <th scope="row">{{forloop.counter}}</th>
+                                                        <td class="text-nowrap align-middle">{{car.out.product.name}}</td>
+
+                                                        <td class="text-center align-middle">
+                                                            <div class="btn-group align-top">
+                                                                <a class="btn btn-sm btn-primary badge" data-target="#user-form-modal" data-bs-toggle="" href="{% url 'return_update' car.id %}">Edit</a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- COL-END -->
+                        </div>
+                        <!-- ROW CLOSED -->
+                    </div>
+                    <!-- CONTAINER CLOSED -->
+                </div>
+            </div>
+            <!--app-content closed-->
+        </div>
+
+{% endblock %}

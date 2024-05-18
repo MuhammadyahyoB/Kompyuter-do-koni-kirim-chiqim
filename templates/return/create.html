@@ -11,10 +11,10 @@
 
                         <!-- PAGE-HEADER -->
                         <div class="page-header">
-                            <h1 class="page-title">Enter-Create</h1>
+                            <h1 class="page-title">Return-Create</h1>
                             <div>
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Enter</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript:void(0)">return</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Create</li>
                                 </ol>
                             </div>
@@ -27,15 +27,15 @@
                             <div class="col-xl-8 col-lg-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Enter create</h4>
+                                        <h4 class="card-title">Return create</h4>
                                     </div>
                                     <div class="card-body">
                                         <form class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
                                             <div class=" row mb-4 mb-4">
-                                                <label for="example-textarea" class="form-label">products</label>
-                                                <select name="id" class="col-md-9">
-                                                    {% for cate in queryset %}
-                                                    <option value="{{cate.id}}">{{cate.product.name}}</option>
+                                                <label for="example-textarea" class="form-label">Outs</label>
+                                                <select name="out_id" class="col-md-9">
+                                                    {% for out in outlays %}
+                                                    <option value="{{out.id}}">{{out.product.name}}</option>
                                                     {% endfor %}
                                                 </select> 
                                             </div>

@@ -86,21 +86,22 @@ class Out(models.Model):
     """ Out model """
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField()
+    returned = models.BooleanField(default=False)
     data = models.DateTimeField(auto_now_add=True)
 
 
 # >>>>>>>>>>>>>>>> Return Modeli <<<<<<<<<<<<<
 class Return(models.Model):
     """ Return model """
-    out = models.ForeignKey(Out, on_delete=models.CASCADE)
+    out = models.ForeignKey(Out, on_delete=models.CASCADE, related_name='returned_set')
+
 
     def __str__(self):
-        return f"{self.out.product.name} - {self.out.quantity}"
-
+        return f'{self.out.product.name} - {self.out.quantity}'
+    
     def save(self, *args, **kwargs):
-        self.out.product.count += self.out.quantity
-        self.out.product.save()
-        super().save(*args, **kwargs)
+        self.out.returned = True
+        super(Return, self).save(*args, **kwargs)
     
 
 

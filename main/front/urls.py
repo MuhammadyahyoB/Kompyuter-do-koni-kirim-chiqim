@@ -38,6 +38,7 @@ urlpatterns = [
     path('settings/',views.setting, name='settings'),
 
     # ------------- Return - create list -------------------
-    # path('return/create/',views.return_create, name='return_create'),
-    # path('return/list/',views.return_list, name='return_list'),
+    path('return/create/',views.return_create, name='return_create'),
+    path('return/list/',views.return_list, name='return_list'),
+    path('return/update/<int:id>/',views.return_update, name='return_update'),
 ]

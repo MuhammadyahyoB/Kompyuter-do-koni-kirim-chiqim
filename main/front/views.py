@@ -364,11 +364,39 @@ def out_update(request, id):
 # >>>>>>>>>>>>>>>>> Return : list create update <<<<<<<<<<<<<<<<<<<
 
 # ----------- Return: create  ----------------
-# def return_create(request):
-#     queryset = models.Out.objects.all()
-#     if request.method == 'POST':
-#         models.Return.objects.create(out = models.Out.objects.get(id=request.POST.get('id')))
-#     return render(request, 'return/create.html', {'queryset': queryset})
+def return_create(request):
+    outlays = models.Out.objects.filter(returned=False)
+    if request.method == 'POST':
+        outlay = models.Out.objects.get(id=request.POST.get('out_id'))
+        models.Return.objects.create(
+            out = outlay
+        )
+        return redirect('return_list')
+    return render(request, 'return/create.html', {'outlays': outlays})
+
+# -------------- Return list ----------------
+
+def return_list(request):
+    """Return List"""
+    queryset = models.Return.objects.all()
+    context = {'queryset': queryset}
+    return render(request,'return/list.html', context)
+
+# -------------- Return update ----------------
+
+def return_update(request, id):
+    """Return Update"""
+    return_ = models.Return.objects.get(id=id)
+    outlays = models.Out.objects.filter(returned=False)
+    
+    if request.method == 'POST':
+        outlay = models.Out.objects.get(id=request.POST.get('out_id'))
+        return_.out = outlay
+        return_.save()
+        return redirect('return_list')
+    
+    context = {'return_': return_, 'outlays': outlays}
+    return render(request,'return/update.html', context)
 
 
 
@@ -383,7 +411,7 @@ def profil(request):
     context = {'user': user}
     return render(request, 'auth/profile.html', context)
 
-
+@login_required
 def setting(request):
     """settings page"""
     if request.method == 'POST':

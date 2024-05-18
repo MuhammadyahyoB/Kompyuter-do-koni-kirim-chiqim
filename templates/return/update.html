@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+<!--app-content open-->
+<div class="main-content app-content mt-0">
+    <div class="side-app">
+
+        <!-- CONTAINER -->
+        <div class="main-container container-fluid">
+
+            <!-- PAGE-HEADER -->
+            <div class="page-header">
+                <h1 class="page-title">Return-Update</h1>
+                <div>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Return</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Update</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- PAGE-HEADER END -->
+
+
+            <!-- Row -->
+            <div class="row">
+                <div class="col-xl-6 col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Return update</h4>
+                        </div>
+                        <div class="card-body">
+                            <form class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
+                                <div class="row mb-4">
+                                    <label for="product" class="form-label">Product</label>
+                                    <select name="product_id" class="col-md-9 form-control">
+                                        {% for product in products %}
+                                        {% if product.id == return_instance.out.product.id %}
+                                        <option value="{{ product.id }}" selected>{{ product.name }}</option>
+                                        {% else %}
+                                        <option value="{{ product.id }}">{{ product.name }}</option>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="quantity" class="form-label">Quantity</label>
+                                    <input type="number" name="quantity" class="form-control" value="{{ return_instance.out.quantity }}" required>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-9">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- CONTAINER CLOSED -->
+
+    </div>
+</div>
+<!--app-content closed-->
+{% endblock %}
