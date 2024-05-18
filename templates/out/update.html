@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+<!--app-content open-->
+            <div class="main-content app-content mt-0">
+                <div class="side-app">
+
+                    <!-- CONTAINER -->
+                    <div class="main-container container-fluid">
+
+                        <!-- PAGE-HEADER -->
+                        <div class="page-header">
+                            <h1 class="page-title">Enter-Update</h1>
+                            <div>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Enter</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Update</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <!-- PAGE-HEADER END -->
+
+
+                        <!-- Row -->
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Enter update</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <form class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
+                                            <div class=" row mb-4 mb-4">
+                                                <label class="col-md-3 form-label">quantity</label>
+                                                <div class="col-md-9">
+                                                    <input class="form-control" type="number" name="quantity" placeholder="..." value="{{out.quantity}}">
+                                                </div>
+                                            </div>
+                                            <div class=" row mb-4 mb-4">
+                                                <label for="example-textarea" class="form-label">product</label>
+                                                <select name="product_code" class="col-md-9">
+                                                    {% for cate in products %}
+                                                    {% if cate == out.products %}
+                                                    <option value="{{cate.code}}" selected>{{cate.name}}</option>
+                                                    {% else %}
+                                                    <option value="{{cate.code}}">{{cate.name}}</option>
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                </select> 
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-md-9">
+                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- CONTAINER CLOSED -->
+
+                </div>
+            </div>
+            <!--app-content closed-->
+
+{% endblock %}

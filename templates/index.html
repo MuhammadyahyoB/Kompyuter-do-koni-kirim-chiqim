@@ -1,0 +1,269 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+
+            <!--app-content open-->
+            <div class="main-content app-content mt-0">
+                <div class="side-app">
+
+                    <!-- CONTAINER -->
+                    <div class="main-container container-fluid">
+
+                        <!-- PAGE-HEADER -->
+                        <div class="page-header">
+                            <h1 class="page-title">Home - Admin panel</h1>
+                            <div>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Admin panel</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <!-- PAGE-HEADER END -->
+
+                        <!-- ROW-1 -->
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
+                                        <div class="card overflow-hidden">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <div class="mt-2">
+                                                        <h6 class="">Products</h6>
+                                                        <h2 class="mb-0 number-font">{{products.count}}</h2>
+                                                    </div>
+                                                    <div class="ms-auto">
+                                                        <div class="chart-wrapper mt-1">
+                                                            <canvas id="saleschart"
+                                                                class="h-8 w-9 chart-dropshadow"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <span class="text-muted fs-12"><span class="text-secondary"><i
+                                                            class="fe fe-arrow-up-circle  text-secondary"></i> 5%</span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
+                                        <div class="card overflow-hidden">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <div class="mt-2">
+                                                        <h6 class="">Enters</h6>
+                                                        <h2 class="mb-0 number-font">{{enters.count}}</h2>
+                                                    </div>
+                                                    <div class="ms-auto">
+                                                        <div class="chart-wrapper mt-1">
+                                                            <canvas id="leadschart"
+                                                                class="h-8 w-9 chart-dropshadow"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <span class="text-muted fs-12"><span class="text-pink"><i
+                                                            class="fe fe-arrow-down-circle text-pink"></i> 0.75%</span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
+                                        <div class="card overflow-hidden">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <div class="mt-2">
+                                                        <h6 class="">Outs</h6>
+                                                        <h2 class="mb-0 number-font">{{outs.count}}</h2>
+                                                    </div>
+                                                    <div class="ms-auto">
+                                                        <div class="chart-wrapper mt-1">
+                                                            <canvas id="profitchart"
+                                                            class="h-8 w-9 chart-dropshadow"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <span class="text-muted fs-12"><span class="text-green"><i
+                                                    class="fe fe-arrow-up-circle text-green"></i> 0.9%</span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
+                                            <div class="card overflow-hidden">
+                                                <div class="card-body">
+                                                    <div class="d-flex">
+                                                        <div class="mt-2">
+                                                            <h6 class="">Return Products</h6>
+                                                            <h2 class="mb-0 number-font">{{returns.count}}</h2>
+                                                        </div>
+                                                    <div class="ms-auto">
+                                                        <div class="chart-wrapper mt-1">
+                                                            <canvas id="costchart"
+                                                                class="h-8 w-9 chart-dropshadow"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <span class="text-muted fs-12"><span class="text-warning"><i
+                                                    class="fe fe-arrow-up-circle text-warning"></i> 0.6%</span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ROW-1 END -->
+
+                        
+                        <!-- ROW OPEN -->
+                        <div class="row row-cards">
+                            <div class="col-lg-12 col-xl-12">
+                                <div class="card">
+                                    <div class="e-table px-5 pb-5">
+                                        <div class="page-header">
+                                            <h1 class="page-title">Product List</h1>
+                                            <div>
+                                                <ol class="breadcrumb">
+                                                    <li>
+                                                        <a href="{% url 'product_create' %}" class="btn btn-danger">+ Add</a>
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                        <form method="get" class="mb-3">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <input type="text" name="name" class="form-control" placeholder="Product Name" value="{{ request.GET.name }}">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <select name="category" class="form-control">
+                                                        <option value="">All Categories</option>
+                                                        {% for category in categories %}
+                                                            <option value="{{ category.name }}" {% if request.GET.category == category.name %}selected{% endif %}>{{ category.name }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="number" name="price_min" class="form-control" placeholder="Min Price" value="{{ request.GET.price_min }}">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="number" name="price_max" class="form-control" placeholder="Max Price" value="{{ request.GET.price_max }}">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="date" name="date_from" class="form-control" placeholder="From" value="{{ request.GET.date_from }}">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="date" name="date_to" class="form-control" placeholder="To" value="{{ request.GET.date_to }}">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <button type="submit" class="btn btn-primary">Filter</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <div class="table-responsive table-lg">
+                                            <table class="table border-top table-bordered mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="color: aqua;">ID</th>
+                                                        <th class="text-center" style="color: aqua;">QR Code</th>
+                                                        <th class="text-center" style="color: aqua;">Image</th>
+                                                        <th style="color: aqua;">Name</th>
+                                                        <th style="color: aqua;">Price</th>
+                                                        <th style="color: aqua;">Count</th>
+                                                        <th style="color: aqua;">Total Entered</th>
+                                                        <th style="color: aqua;">Total Out</th>
+                                                        <th style="color: aqua;" class="text-center">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for product in products %}
+                                                    <tr>
+                                                        <th scope="row">{{ forloop.counter }}</th>
+                                                        <td class="align-middle text-center">
+                                                            {% if product.qr_code %}
+                                                            <img alt="image" class="avatar avatar-md br-7" src="{{ product.qr_code.url }}">
+                                                            {% else %}
+                                                            No
+                                                            {% endif %}
+                                                        </td>
+                                                        <td class="align-middle text-center">
+                                                            {% if product.image %}
+                                                            <img alt="image" class="avatar avatar-md br-7" src="{{ product.image.url }}">
+                                                            {% else %}
+                                                            No
+                                                            {% endif %}
+                                                        </td>
+                                                        <td class="text-nowrap align-middle">{{ product.name }}</td>
+                                                        <td class="text-nowrap align-middle">{{ product.price }}</td>
+                                                        <td class="text-nowrap align-middle">{{ product.count }}</td>
+                                                        <td class="text-nowrap align-middle">{{ product.total_entered|default:"0" }}</td>
+                                                        <td class="text-nowrap align-middle">{{ product.total_out|default:"0" }}</td>
+                                                        <td class="text-center align-middle">
+                                                            <div class="btn-group align-top">
+                                                                <a class="btn btn-sm btn-primary badge" href="{% url 'product_update' product.code %}">Edit</a>
+                                                                <a class="btn btn-sm btn-primary badge" href="{% url 'product_delete' product.code %}">
+                                                                    <i class="fa fa-trash"></i>
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- COL-END -->
+                        </div>
+                        <!-- ROW CLOSED -->
+                        
+                        <!-- ROW OPEN -->
+                        <div class="row row-cards">
+                            <div class="col-lg-12 col-xl-12">
+                                <div class="card">
+                                    <div class="e-table px-5 pb-5">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Category list</h4>
+                                        </div>
+                                        <div class="table-responsive table-lg">
+                                            <table class="table border-top table-bordered mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="color: aqua;">ID</th>
+                                                        <th style="color: aqua;">Name</th>
+                                                        <th style="color: aqua;" class="text-center">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for car in categories %}
+                                                    <tr>
+                                                        <th scope="row">{{forloop.counter}}</th>
+                                                        <td class="text-nowrap align-middle">{{car.name}}</td>
+
+                                                        <td class="text-center align-middle">
+                                                            <div class="btn-group align-top">
+                                                                <a class="btn btn-sm btn-primary badge" data-target="#user-form-modal" data-bs-toggle="" href="{% url 'category_update' car.code %}">Edit</a>
+                                                                 <a class="btn btn-sm btn-primary badge" href="{% url 'category_delete' car.code %}"><i class="fa fa-trash"></i></a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- COL-END -->
+                        </div>
+                        <!-- ROW CLOSED -->
+
+
+
+                    </div>
+                    <!-- CONTAINER END -->
+                </div>
+            </div>
+            <!--app-content close-->
+            
+
+
+{% endblock %}

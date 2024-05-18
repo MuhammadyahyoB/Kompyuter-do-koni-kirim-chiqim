@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+<!--app-content open-->
+            <div class="main-content app-content mt-0">
+                <div class="side-app">
+
+                    <!-- CONTAINER -->
+                    <div class="main-container container-fluid">
+
+                        <!-- PAGE-HEADER -->
+                        <div class="page-header">
+                            <h1 class="page-title">Product-Create</h1>
+                            <div>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Product</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Create</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <!-- PAGE-HEADER END -->
+
+
+                        <!-- Row -->
+                        <div class="row">
+                            <div class="col-xl-8 col-lg-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Products create</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <form class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
+                                            <div class=" row mb-4">
+                                                <label class="col-md-3 form-label">name</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" name="name" placeholder="...">
+                                                </div>
+                                            </div>
+                                            <div class=" row mb-4">
+                                                <label class="col-md-3 form-label">description</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" name="description" placeholder="...">
+                                                </div>
+                                            </div>
+                                            <div class=" row mb-4 mb-4">
+                                                <label class="col-md-3 form-label">price</label>
+                                                <div class="col-md-9">
+                                                    <input class="form-control" type="number" name="price" placeholder="...">
+                                                </div>
+                                            </div>
+                                            <div class=" row mb-4 mb-4">
+                                                <label class="col-md-3 form-label">count</label>
+                                                <div class="col-md-9">
+                                                    <input class="form-control" type="number" name="count" placeholder="...">
+                                                </div>
+                                            </div>
+                                            <div class=" row mb-4 mb-4">
+                                                <label for="example-textarea" class="form-label">category</label>
+                                                <select name="category_code" class="col-md-9">
+                                                    {% for cate in categories %}
+                                                    <option value="{{cate.code}}">{{cate.name}}</option>
+                                                    {% endfor %}
+                                                </select> 
+                                            </div>
+                                            <div class="row mb-4 mb-4">
+                                                <label class="col-md-3 form-label">image</label>
+                                                <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-md-9">
+                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- CONTAINER CLOSED -->
+
+                </div>
+            </div>
+            <!--app-content closed-->
+
+{% endblock %}
